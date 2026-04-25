@@ -1,3 +1,22 @@
 /* Page-specific styles will accumulate here as we build each page. */
 
 .page { animation: fadeIn var(--d-slow) var(--ease); }
+
+/* Transactions preview list (Step 3 readout — final list arrives in Step 5). */
+.tx-list { display: flex; flex-direction: column; }
+.tx-row {
+  display: grid;
+  grid-template-columns: 36px 1fr auto;
+  align-items: center;
+  gap: var(--s-3);
+  padding: var(--s-4) var(--s-5);
+  border-bottom: 1px solid var(--c-border-soft);
+}
+.tx-row:last-child { border-bottom: none; }
+.tx-icon { font-size: var(--t-lg); text-align: center; }
+.tx-desc { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.tx-title { font-size: var(--t-sm); }
+.tx-meta  { font-size: var(--t-xs); color: var(--c-text-dim); }
+.tx-amt   { font-variant-numeric: tabular-nums; font-size: var(--t-sm); }
+.tx-amt.pos { color: var(--c-positive); }
+.tx-amt.neg { color: var(--c-text-mute); }
