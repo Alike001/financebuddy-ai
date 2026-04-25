@@ -1,0 +1,101 @@
+/* Design tokens — change once, restyle everywhere. */
+
+:root {
+  /* Brand palette — deep finance blue, mint accent, warm amber */
+  --c-bg:           #0b1020;
+  --c-bg-2:         #0f172a;
+  --c-surface:      #111a33;
+  --c-surface-2:    #18223f;
+  --c-surface-3:    #1f2b50;
+  --c-border:       #283362;
+  --c-border-soft:  #1c2547;
+
+  --c-text:         #e8ecf8;
+  --c-text-mute:    #9aa3c7;
+  --c-text-dim:     #6c7aa8;
+
+  --c-primary:      #6ea8ff;   /* sky/blue */
+  --c-primary-2:    #4a86f5;
+  --c-accent:       #45e0a8;   /* mint */
+  --c-accent-2:     #21c990;
+  --c-warn:         #ffb454;
+  --c-danger:       #ff6b81;
+  --c-positive:     #45e0a8;
+  --c-negative:     #ff6b81;
+
+  /* Category colors (used by charts) */
+  --cat-food:       #ffb454;
+  --cat-rent:       #6ea8ff;
+  --cat-bills:      #b58cff;
+  --cat-transport:  #45e0a8;
+  --cat-shopping:   #ff6b81;
+  --cat-fun:        #ffd166;
+  --cat-savings:    #5eead4;
+  --cat-other:      #94a3b8;
+  --cat-income:     #45e0a8;
+
+  /* Spacing scale */
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 20px;
+  --s-6: 24px;
+  --s-7: 32px;
+  --s-8: 40px;
+  --s-9: 56px;
+
+  /* Radii */
+  --r-1: 6px;
+  --r-2: 10px;
+  --r-3: 14px;
+  --r-4: 20px;
+  --r-pill: 999px;
+
+  /* Shadows */
+  --sh-1: 0 1px 2px rgba(0,0,0,.25);
+  --sh-2: 0 8px 24px rgba(2, 6, 23, .35);
+  --sh-3: 0 16px 40px rgba(2, 6, 23, .5);
+
+  /* Typography */
+  --f-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --f-mono: ui-monospace, 'JetBrains Mono', 'Fira Code', SFMono-Regular, Menlo, monospace;
+  --t-xs: 12px;
+  --t-sm: 13px;
+  --t-md: 15px;
+  --t-lg: 18px;
+  --t-xl: 22px;
+  --t-2xl: 28px;
+  --t-3xl: 36px;
+
+  /* Layout */
+  --sidebar-w: 248px;
+  --topbar-h:  72px;
+  --content-max: 1280px;
+
+  /* Motion */
+  --ease: cubic-bezier(.4, 0, .2, 1);
+  --d-fast: 120ms;
+  --d-mid:  220ms;
+  --d-slow: 380ms;
+}
+
+/* Light theme overrides — opt in via [data-theme="light"] on <html>. */
+:root[data-theme='light'] {
+  --c-bg:           #f6f8ff;
+  --c-bg-2:         #eef2ff;
+  --c-surface:      #ffffff;
+  --c-surface-2:    #f4f7ff;
+  --c-surface-3:    #e9efff;
+  --c-border:       #d6deef;
+  --c-border-soft:  #e6ebf7;
+
+  --c-text:         #0f172a;
+  --c-text-mute:    #475569;
+  --c-text-dim:     #64748b;
+
+  --c-primary:      #2f6fed;
+  --c-primary-2:    #1d4fc7;
+  --sh-2: 0 8px 24px rgba(15, 23, 42, .08);
+  --sh-3: 0 16px 40px rgba(15, 23, 42, .12);
+}

@@ -1,0 +1,3 @@
+/* Page-specific styles will accumulate here as we build each page. */
+
+.page { animation: fadeIn var(--d-slow) var(--ease); }
