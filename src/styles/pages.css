@@ -89,6 +89,66 @@
   .tx-row-actions .tx-actions { grid-column: 1 / -1; justify-content: flex-end; }
 }
 
+/* Dashboard cards */
+.card-head {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: var(--s-4);
+  gap: var(--s-3);
+}
+.card-title { font-size: var(--t-md); font-weight: 600; }
+
+.chart-card { position: relative; }
+
+/* CategoryPie wrapper: chart + center label + legend */
+.chart-wrap { position: relative; display: flex; flex-direction: column; }
+.chart-center {
+  position: absolute;
+  top: 130px;       /* matches recharts container height of 260 */
+  left: 0; right: 0;
+  text-align: center;
+  pointer-events: none;
+  transform: translateY(-50%);
+}
+.chart-center-label { font-size: var(--t-xs); color: var(--c-text-dim); text-transform: uppercase; letter-spacing: .08em; }
+.chart-center-value { font-size: var(--t-lg); font-weight: 600; font-variant-numeric: tabular-nums; }
+
+.legend { display: flex; flex-direction: column; gap: 4px; margin-top: var(--s-3); }
+.legend-row {
+  display: grid; grid-template-columns: 12px 1fr auto;
+  align-items: center; gap: 8px;
+  font-size: var(--t-xs); color: var(--c-text-mute);
+}
+.legend-dot { width: 8px; height: 8px; border-radius: 50%; }
+.legend-label { color: var(--c-text); }
+.legend-pct { color: var(--c-text-dim); font-variant-numeric: tabular-nums; }
+
+/* Recharts custom tooltip */
+.chart-tip {
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-2);
+  padding: 8px 12px;
+  font-size: var(--t-xs);
+  color: var(--c-text);
+  box-shadow: var(--sh-2);
+}
+.chart-tip-title { font-weight: 600; margin-bottom: 2px; }
+
+/* Insight card */
+.insight-card {
+  background:
+    radial-gradient(400px 200px at 100% 0%, rgba(110,168,255,.10), transparent 60%),
+    radial-gradient(400px 200px at 0% 100%, rgba(69,224,168,.08), transparent 60%),
+    linear-gradient(180deg, var(--c-surface), var(--c-bg-2));
+}
+.insight-body { font-size: var(--t-md); line-height: 1.55; margin-bottom: var(--s-3); }
+.insight-detail { font-size: var(--t-sm); color: var(--c-text-mute); margin-bottom: var(--s-4); }
+.insight-foot {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--s-3);
+  flex-wrap: wrap;
+}
+.insight-foot-note { font-size: var(--t-xs); color: var(--c-text-dim); }
+
 /* Onboarding */
 .onboarding-progress {
   display: flex; gap: 8px; align-self: flex-start;

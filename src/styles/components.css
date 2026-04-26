@@ -94,10 +94,41 @@
   padding: var(--s-5) var(--s-6);
 }
 .stat-label { font-size: var(--t-xs); color: var(--c-text-dim); text-transform: uppercase; letter-spacing: .08em; }
-.stat-value { font-size: var(--t-2xl); font-weight: 600; }
+.stat-value { font-size: var(--t-2xl); font-weight: 600; font-variant-numeric: tabular-nums; }
 .stat-delta { font-size: var(--t-xs); color: var(--c-text-mute); }
 .stat-delta.up { color: var(--c-positive); }
 .stat-delta.down { color: var(--c-negative); }
+
+/* Dashboard stat cards — tone variants add a left accent stripe */
+.stat-card {
+  display: flex; flex-direction: column; gap: 6px;
+  padding: var(--s-5) var(--s-5);
+  position: relative;
+  overflow: hidden;
+}
+.stat-card::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: var(--c-border);
+}
+.stat-card-income::before   { background: linear-gradient(180deg, var(--c-accent), var(--c-accent-2)); }
+.stat-card-expense::before  { background: linear-gradient(180deg, var(--c-text-mute), var(--c-text-dim)); }
+.stat-card-positive::before { background: linear-gradient(180deg, var(--c-accent), var(--c-primary)); }
+.stat-card-negative::before { background: linear-gradient(180deg, var(--c-danger), #d94860); }
+.stat-card-accent::before   { background: linear-gradient(180deg, var(--c-primary), var(--c-primary-2)); }
+
+.stat-progress {
+  height: 4px; border-radius: 999px;
+  background: var(--c-surface-3);
+  margin-top: 8px;
+  overflow: hidden;
+}
+.stat-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--c-accent), var(--c-primary));
+  border-radius: 999px;
+  transition: width var(--d-slow) var(--ease);
+}
 
 /* Toast */
 .toast-stack {
