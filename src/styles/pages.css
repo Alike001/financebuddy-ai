@@ -20,3 +20,83 @@
 .tx-amt   { font-variant-numeric: tabular-nums; font-size: var(--t-sm); }
 .tx-amt.pos { color: var(--c-positive); }
 .tx-amt.neg { color: var(--c-text-mute); }
+
+/* Onboarding */
+.onboarding-progress {
+  display: flex; gap: 8px; align-self: flex-start;
+}
+.onboarding-dot {
+  width: 28px; height: 4px; border-radius: 999px;
+  background: var(--c-surface-3);
+  transition: background var(--d-mid) var(--ease);
+}
+.onboarding-dot.on { background: linear-gradient(90deg, var(--c-accent), var(--c-primary)); }
+.onboarding-summary {
+  margin-top: 8px;
+  background: var(--c-surface-2);
+  border: 1px solid var(--c-border-soft);
+  border-radius: var(--r-2);
+  padding: var(--s-4);
+  display: flex; flex-direction: column; gap: 8px;
+}
+.onboarding-row {
+  display: flex; justify-content: space-between;
+  font-size: var(--t-sm); color: var(--c-text-mute);
+}
+.onboarding-row strong { color: var(--c-text); }
+
+/* Settings */
+.settings-grid { align-items: start; }
+.settings-heading { font-size: var(--t-lg); margin-bottom: 4px; }
+.settings-hint { font-size: var(--t-xs); color: var(--c-text-dim); margin-bottom: var(--s-4); }
+
+.theme-row { display: flex; gap: var(--s-3); }
+.theme-card {
+  flex: 1;
+  display: flex; align-items: center; gap: var(--s-3);
+  padding: var(--s-3) var(--s-4);
+  background: var(--c-surface-2);
+  border: 1px solid var(--c-border-soft);
+  border-radius: var(--r-2);
+  color: var(--c-text);
+  transition: border-color var(--d-fast) var(--ease), background var(--d-fast) var(--ease);
+}
+.theme-card.on { border-color: var(--c-primary); background: var(--c-surface-3); }
+.theme-swatch {
+  width: 28px; height: 28px; border-radius: var(--r-1);
+  border: 1px solid var(--c-border-soft);
+}
+.theme-swatch.theme-dark  { background: linear-gradient(135deg, #0b1020, #18223f); }
+.theme-swatch.theme-light { background: linear-gradient(135deg, #f6f8ff, #d6deef); }
+
+.skill-row {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--s-4);
+  padding: var(--s-4);
+  background: var(--c-surface-2);
+  border: 1px solid var(--c-border-soft);
+  border-radius: var(--r-2);
+  transition: border-color var(--d-fast) var(--ease), background var(--d-fast) var(--ease);
+}
+.skill-row.on { border-color: rgba(69,224,168,.4); background: rgba(69,224,168,.04); }
+.skill-row-title { font-size: var(--t-sm); }
+.skill-row-desc  { font-size: var(--t-xs); color: var(--c-text-dim); margin-top: 2px; }
+
+.switch {
+  width: 44px; height: 24px;
+  border-radius: 999px;
+  background: var(--c-surface-3);
+  border: 1px solid var(--c-border);
+  position: relative;
+  cursor: pointer;
+  transition: background var(--d-fast) var(--ease), border-color var(--d-fast) var(--ease);
+}
+.switch.on { background: linear-gradient(90deg, var(--c-accent), var(--c-primary)); border-color: transparent; }
+.switch-knob {
+  position: absolute; top: 2px; left: 2px;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: var(--sh-1);
+  transition: transform var(--d-mid) var(--ease);
+}
+.switch.on .switch-knob { transform: translateX(20px); }
