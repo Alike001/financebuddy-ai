@@ -16,11 +16,9 @@
  */
 
 import { useAgentStore } from '../store/useAgentStore.js';
-import { useFinanceStore } from '../store/useFinanceStore.js';
 import { GOALS } from '../agent/goals.js';
 import { runGoal } from '../agent/runtime.js';
-import { approvePayment, rejectPayment } from '../agent/payment.js';
-import { money, dateShort } from '../utils/format.js';
+import PaymentSimulatorPanel from '../components/PaymentSimulatorPanel.jsx';
 
 function statusPill(status) {
   if (status === 'running') return { className: 'pill pill-info', label: 'Running' };
@@ -31,7 +29,6 @@ function statusPill(status) {
 
 export default function AgentWorkflow() {
   const { status, goalLabel, events, summary, pendingPayment } = useAgentStore();
-  const { profile } = useFinanceStore();
   const isRunning = status === 'running';
   const pill = statusPill(status);
   const blocked = isRunning || !!pendingPayment;
@@ -78,14 +75,7 @@ export default function AgentWorkflow() {
         ))}
       </div>
 
-      {pendingPayment && (
-        <PendingPaymentCard
-          payment={pendingPayment}
-          currency={profile.currency}
-          onApprove={approvePayment}
-          onReject={rejectPayment}
-        />
-      )}
+      <PaymentSimulatorPanel />
 
       <div className="card timeline-card">
         <div className="card-head">
@@ -247,40 +237,4 @@ function formatArg(v) {
   if (typeof v === 'string') return v.length > 28 ? v.slice(0, 26) + '…' : v;
   if (typeof v === 'number') return String(v);
   return JSON.stringify(v).slice(0, 28);
-}
-
-function PendingPaymentCard({ payment, currency, onApprove, onReject }) {
-  return (
-    <div className="card pending-card">
-      <div className="pending-head">
-        <span className="pill pill-warn">Awaiting your approval</span>
-        <div className="pending-amt">{money(payment.amount, currency)}</div>
-      </div>
-      <div className="pending-body">
-        <div className="pending-row">
-          <span className="pending-label">Payee</span>
-          <span className="pending-value">{payment.payee}</span>
-        </div>
-        <div className="pending-row">
-          <span className="pending-label">Reason</span>
-          <span className="pending-value">{payment.reason || '—'}</span>
-        </div>
-        <div className="pending-row">
-          <span className="pending-label">Date</span>
-          <span className="pending-value">{dateShort(payment.date)}</span>
-        </div>
-        <div className="pending-row">
-          <span className="pending-label">Category</span>
-          <span className="pending-value">{payment.category}</span>
-        </div>
-      </div>
-      <div className="pending-actions">
-        <button className="btn btn-ghost" onClick={onReject}>Reject</button>
-        <button className="btn btn-primary" onClick={onApprove}>Approve & pay</button>
-      </div>
-      <p className="pending-foot">
-        Simulated payment · the ledger row is tagged <code>simulated: true</code> so demo data stays demo data.
-      </p>
-    </div>
-  );
 }

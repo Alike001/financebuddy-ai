@@ -2,6 +2,8 @@ import { Outlet } from 'react-router-dom';
 
 import Sidebar from './Sidebar.jsx';
 import TopBar from './TopBar.jsx';
+import PaymentApprovalModal from './PaymentApprovalModal.jsx';
+import ToastStack from './ToastStack.jsx';
 
 export default function Layout() {
   return (
@@ -13,6 +15,8 @@ export default function Layout() {
           <Outlet />
         </main>
       </div>
+      <PaymentApprovalModal />
+      <ToastStack />
     </div>
   );
 }

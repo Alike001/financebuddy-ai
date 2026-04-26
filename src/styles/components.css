@@ -137,14 +137,37 @@
   z-index: 50;
 }
 .toast {
-  padding: var(--s-4) var(--s-5);
+  display: flex; align-items: center; gap: var(--s-3);
+  padding: var(--s-3) var(--s-4);
   border-radius: var(--r-2);
   background: var(--c-surface);
   border: 1px solid var(--c-border);
   box-shadow: var(--sh-3);
   animation: slideIn var(--d-mid) var(--ease);
-  min-width: 240px;
+  min-width: 260px;
+  max-width: 360px;
+  text-align: left;
+  color: var(--c-text);
+  cursor: pointer;
+  transition: transform var(--d-fast) var(--ease), border-color var(--d-fast) var(--ease);
 }
+.toast:hover { transform: translateY(-1px); border-color: var(--c-border-soft); }
+.toast-glyph {
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-family: var(--f-mono);
+  font-size: var(--t-xs);
+  flex-shrink: 0;
+}
+.toast-msg { font-size: var(--t-sm); }
+.toast-ok    .toast-glyph { background: rgba(69,224,168,.14); color: var(--c-accent); }
+.toast-warn  .toast-glyph { background: rgba(255,180,84,.14); color: var(--c-warn); }
+.toast-err   .toast-glyph { background: rgba(255,107,129,.14); color: var(--c-danger); }
+.toast-info  .toast-glyph { background: rgba(110,168,255,.14); color: var(--c-primary); }
+.toast-ok   { border-color: rgba(69,224,168,.30); }
+.toast-warn { border-color: rgba(255,180,84,.30); }
+.toast-err  { border-color: rgba(255,107,129,.30); }
 
 /* Modal */
 .modal-backdrop {
