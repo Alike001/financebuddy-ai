@@ -220,6 +220,20 @@ function TimelineRow({ event, isLatest, isRunning }) {
         </li>
       );
 
+    case 'narration':
+      return (
+        <li className={cls}>
+          <span className="tl-glyph tl-glyph-narration">✺</span>
+          <div className="tl-body">
+            <div className="tl-narration">
+              <span className="pill pill-info tl-narration-pill">live AI</span>
+              {event.model && <code className="tl-code tl-narration-model">{event.model}</code>}
+            </div>
+            <div className="tl-narration-body">{event.body}</div>
+          </div>
+        </li>
+      );
+
     default:
       return null;
   }

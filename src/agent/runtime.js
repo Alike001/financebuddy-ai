@@ -19,6 +19,7 @@ import { GOAL_BY_ID } from './goals.js';
 import { planGoal } from './planner.js';
 import { tools } from './tools/index.js';
 import { renderUserMd } from './workspace/index.js';
+import { narrateRun } from './llm.js';
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -94,6 +95,34 @@ export async function runGoal(goalId) {
     // 4. Final goal summary.
     const summary = summarizeRun(goal, results, getAgent().events);
     emit({ type: 'goal:done', summary });
+
+    // 5. Optional Live AI narration. Opt-in only — pure deterministic path
+    //    above always finishes first, so a Claude failure never breaks the run.
+    const { settings } = getFinance();
+    if (settings.liveAi?.enabled && settings.liveAi?.apiKey) {
+      try {
+        emit({ type: 'thought', text: 'Live AI on — asking Claude to narrate this run…' });
+        await sleep(160);
+        const { text, usage, model } = await narrateRun({
+          apiKey: settings.liveAi.apiKey,
+          goal,
+          events: getAgent().events,
+          userContext: renderUserMd(getFinance()),
+        });
+        if (text) {
+          emit({ type: 'narration', body: text, model, usage });
+        }
+      } catch (err) {
+        console.error('[live-ai] narration failed', err);
+        emit({
+          type: 'finding',
+          severity: 'info',
+          title: 'Live narration unavailable',
+          body: err.message ?? 'Claude call failed. Falling back to deterministic summary.',
+        });
+      }
+    }
+
     agentActions.finish(summary);
     tools.notify.toast('Agent run complete', 'ok');
   } catch (err) {

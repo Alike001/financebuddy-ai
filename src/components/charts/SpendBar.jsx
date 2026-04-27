@@ -29,7 +29,9 @@ export default function SpendBar({ data, currency }) {
           tick={{ fill: grid, fontSize: 11 }}
           tickLine={false}
           axisLine={false}
-          tickFormatter={(v) => '$' + Math.round(v)}
+          allowDecimals={false}
+          domain={[0, (dataMax) => Math.max(10, Math.ceil(dataMax))]}
+          tickFormatter={(v) => (v >= 1000 ? `$${Math.round(v / 1000)}k` : `$${Math.round(v)}`)}
           width={48}
         />
         <Tooltip cursor={{ fill: 'rgba(110,168,255,.06)' }} content={<BarTip currency={currency} />} />

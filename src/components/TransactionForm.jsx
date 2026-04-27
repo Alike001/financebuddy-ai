@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { CATEGORIES } from '../data/categories.js';
 import { autoCategorize } from '../utils/categorize.js';
 import { today } from '../utils/date.js';
@@ -7,9 +7,9 @@ import { today } from '../utils/date.js';
  * Modal form for adding or editing a transaction.
  *
  * Mode is implicit: pass `transaction` to edit, omit it to add.
- * Auto-categorization runs while the user types — but only when they haven't
- * manually picked a category yet. Once they touch the dropdown we stop guessing
- * so we don't fight the user.
+ * Auto-categorization is derived from inputs each render (no effect, no
+ * cascading setState). Once the user picks a category, we stop guessing so we
+ * don't fight them.
  *
  * Amount UX: the user types a positive number and picks "Expense" or "Income".
  * We store expenses as negative internally (matches the seed data convention).
@@ -18,26 +18,26 @@ export default function TransactionForm({ transaction, onSave, onCancel }) {
   const editing = Boolean(transaction);
 
   const [form, setForm] = useState(() => initialForm(transaction));
-  const [autoCat, setAutoCat] = useState(true);
+  const [userCategory, setUserCategory] = useState(transaction ? transaction.category : null);
 
-  useEffect(() => {
-    if (!autoCat) return;
-    const signedAmount = form.kind === 'income'
-      ? Math.abs(Number(form.amount) || 0)
-      : -Math.abs(Number(form.amount) || 0);
-    const guess = autoCategorize(form.description, signedAmount);
-    if (guess !== form.category) {
-      setForm((f) => ({ ...f, category: guess }));
-    }
-  }, [form.description, form.kind, form.amount, autoCat]);
+  const signedAmount = form.kind === 'income'
+    ? Math.abs(Number(form.amount) || 0)
+    : -Math.abs(Number(form.amount) || 0);
+
+  const autoGuess = useMemo(
+    () => autoCategorize(form.description, signedAmount),
+    [form.description, signedAmount],
+  );
+
+  const category = userCategory ?? autoGuess;
+  const isAuto = userCategory === null;
 
   function update(patch) {
     setForm((f) => ({ ...f, ...patch }));
   }
 
   function handleCategory(e) {
-    setAutoCat(false);
-    update({ category: e.target.value });
+    setUserCategory(e.target.value);
   }
 
   function handleSubmit(e) {
@@ -49,7 +49,7 @@ export default function TransactionForm({ transaction, onSave, onCancel }) {
     onSave({
       date: form.date || today(),
       amount: signed,
-      category: form.category,
+      category,
       description: form.description.trim(),
     });
   }
@@ -122,11 +122,11 @@ export default function TransactionForm({ transaction, onSave, onCancel }) {
           <div className="form-row">
             <label className="label">
               Category
-              {autoCat && form.description && (
+              {isAuto && form.description && (
                 <span className="label-hint"> · auto-guessed</span>
               )}
             </label>
-            <select className="select" value={form.category} onChange={handleCategory}>
+            <select className="select" value={category} onChange={handleCategory}>
               {CATEGORIES.map((c) => (
                 <option key={c.id} value={c.id}>{c.icon}  {c.label}</option>
               ))}
@@ -152,7 +152,6 @@ function initialForm(tx) {
       amount: '',
       kind: 'expense',
       date: today(),
-      category: 'other',
     };
   }
   return {
@@ -160,6 +159,5 @@ function initialForm(tx) {
     amount: String(Math.abs(tx.amount ?? 0)),
     kind: (tx.amount ?? 0) >= 0 ? 'income' : 'expense',
     date: tx.date ?? today(),
-    category: tx.category ?? 'other',
   };
 }

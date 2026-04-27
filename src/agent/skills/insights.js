@@ -4,7 +4,6 @@ import {
   spendByCategory,
 } from '../../utils/analytics.js';
 import { isWeekend, monthOf, today } from '../../utils/date.js';
-import { CATEGORY_BY_ID } from '../../data/categories.js';
 
 /**
  * Insights skill: scan the current month for risky patterns and emit findings.

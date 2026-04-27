@@ -20,7 +20,6 @@ import {
   getFinance,
 } from '../store/useFinanceStore.js';
 import { SKILL_LIST } from '../agent/skills/index.js';
-import { tools } from '../agent/tools/index.js';
 import { WORKSPACE, renderUserMd } from '../agent/workspace/index.js';
 import { runGoal } from '../agent/runtime.js';
 import { useAgentStore } from '../store/useAgentStore.js';

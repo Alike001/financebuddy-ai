@@ -431,6 +431,26 @@
   box-shadow: 0 6px 16px rgba(74,134,245,.30);
 }
 
+/* Narration row — Claude-written summary, only appears when Live AI is on */
+.tl-glyph-narration {
+  color: #fff;
+  background: linear-gradient(135deg, #b46aff, #6ea8ff);
+  border-color: transparent;
+  box-shadow: 0 6px 16px rgba(180,106,255,.30);
+}
+.tl-narration { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-bottom: 4px; }
+.tl-narration-pill { background: linear-gradient(135deg, rgba(180,106,255,.18), rgba(110,168,255,.18)); border-color: rgba(180,106,255,.35); color: #d4b8ff; }
+.tl-narration-model { font-size: var(--t-xs); color: var(--c-text-dim); }
+.tl-narration-body {
+  color: var(--c-text);
+  background: linear-gradient(135deg, rgba(180,106,255,.06), rgba(110,168,255,.06));
+  border: 1px solid rgba(180,106,255,.20);
+  border-radius: var(--r-2);
+  padding: 10px 12px;
+  line-height: 1.55;
+  font-style: italic;
+}
+
 /* Live row (currently executing skill) — gentle pulse */
 .tl-live .tl-glyph::after {
   content: '';

@@ -1,6 +1,5 @@
 import { savingsProgress, totals, inMonth } from '../../utils/analytics.js';
 import { getFinance } from '../../store/useFinanceStore.js';
-import { monthOf, today } from '../../utils/date.js';
 
 /**
  * Saver skill: compares this month's actual savings to the user's goal,

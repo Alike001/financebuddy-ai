@@ -112,15 +112,31 @@ export default function Settings() {
           </div>
         </section>
 
-        {/* Live AI mode (placeholder) */}
+        {/* Live AI mode */}
         <section className="card">
-          <h3 className="settings-heading">
-            Live AI mode <span className="pill pill-info" style={{ marginLeft: 8 }}>step 14</span>
-          </h3>
-          <p className="settings-hint">
-            Optional. Paste your Anthropic API key to upgrade the agent's narration to real Claude.
-            Default agent is fully deterministic and demo-safe — you don't need this.
-          </p>
+          <div className="skill-row" style={{ marginBottom: 8 }}>
+            <div>
+              <h3 className="settings-heading" style={{ margin: 0 }}>
+                Live AI mode
+                <span className={'pill ' + (settings.liveAi.enabled ? 'pill-ok' : 'pill-info')} style={{ marginLeft: 8 }}>
+                  {settings.liveAi.enabled ? 'active' : 'opt-in'}
+                </span>
+              </h3>
+              <p className="settings-hint" style={{ marginTop: 4 }}>
+                Adds a Claude-written narration to every agent run. Skills still execute locally — Claude only writes the closing paragraph.
+              </p>
+            </div>
+            <button
+              className={'switch' + (settings.liveAi.enabled ? ' on' : '')}
+              aria-pressed={settings.liveAi.enabled}
+              onClick={() => actions.setLiveAi({ enabled: !settings.liveAi.enabled })}
+              disabled={!settings.liveAi.apiKey}
+              title={!settings.liveAi.apiKey ? 'Paste a key to enable' : 'Toggle live narration'}
+            >
+              <span className="switch-knob" />
+            </button>
+          </div>
+
           <label className="label" htmlFor="s-key">Anthropic API key</label>
           <input
             id="s-key"
@@ -129,10 +145,11 @@ export default function Settings() {
             placeholder="sk-ant-..."
             value={settings.liveAi.apiKey}
             onChange={(e) => actions.setLiveAi({ apiKey: e.target.value })}
-            disabled
+            autoComplete="off"
           />
           <div className="settings-hint" style={{ marginTop: 8 }}>
-            This input is wired but inert until step 14. Key never leaves your browser when active.
+            Key is stored in this browser's localStorage only — never sent anywhere except directly to Anthropic.
+            Uses <code>claude-haiku-4-5-20251001</code> with prompt caching on the workspace files.
           </div>
         </section>
 
