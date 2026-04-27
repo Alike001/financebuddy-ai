@@ -17,7 +17,7 @@ Built for the **Mini Hack Agents / OpenClaw** hackathon.
 - **Reports** — month picker, narrative paragraph from the `report` skill, daily-spend bar, category donut, top 5 expenses with a `simulated` tag.
 - **Settings** — theme toggle, currency, savings goal, skill enable/disable, erase data, view live workspace files.
 - **Accessibility** — `prefers-reduced-motion` honored across all animations.
-- **Optional live AI mode** — paste an Anthropic API key in Settings to upgrade narration to real Claude calls *(Step 14, opt-in only — default stays deterministic for stage safety)*.
+- **Optional live AI mode** — paste an Anthropic API key in Settings to upgrade narration to real Claude calls.
 
 ## Tech stack
 

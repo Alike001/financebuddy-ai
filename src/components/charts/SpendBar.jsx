@@ -15,6 +15,10 @@ export default function SpendBar({ data, currency }) {
   const warn   = cssVar('--c-warn')    || '#ffb454';
   const grid   = cssVar('--c-text-dim')|| '#6c7aa8';
 
+  const dataMax = data.reduce((m, d) => Math.max(m, d.value || 0), 0);
+  const niceMax = niceCeil(Math.max(10, dataMax));
+  const ticks = [0, niceMax * 0.25, niceMax * 0.5, niceMax * 0.75, niceMax];
+
   return (
     <ResponsiveContainer width="100%" height={240}>
       <BarChart data={data} margin={{ top: 8, right: 8, left: -16, bottom: 0 }}>
@@ -29,9 +33,9 @@ export default function SpendBar({ data, currency }) {
           tick={{ fill: grid, fontSize: 11 }}
           tickLine={false}
           axisLine={false}
-          allowDecimals={false}
-          domain={[0, (dataMax) => Math.max(10, Math.ceil(dataMax))]}
-          tickFormatter={(v) => (v >= 1000 ? `$${Math.round(v / 1000)}k` : `$${Math.round(v)}`)}
+          domain={[0, niceMax]}
+          ticks={ticks}
+          tickFormatter={formatTick}
           width={48}
         />
         <Tooltip cursor={{ fill: 'rgba(110,168,255,.06)' }} content={<BarTip currency={currency} />} />
@@ -45,6 +49,27 @@ export default function SpendBar({ data, currency }) {
       </BarChart>
     </ResponsiveContainer>
   );
+}
+
+/**
+ * Round a number up to a "nice" boundary (1, 2, 5 × 10^n) so dividing it into
+ * quarters always yields distinct integer-ish ticks. Without this the y-axis
+ * can collapse two ticks into the same label after rounding.
+ */
+function niceCeil(n) {
+  if (n <= 10) return 10;
+  const exp = Math.pow(10, Math.floor(Math.log10(n)));
+  const m = n / exp;
+  const niceM = m <= 2 ? 2 : m <= 5 ? 5 : 10;
+  return niceM * exp;
+}
+
+function formatTick(v) {
+  if (v >= 1000) {
+    const k = v / 1000;
+    return Number.isInteger(k) ? `$${k}k` : `$${k.toFixed(1)}k`;
+  }
+  return `$${Math.round(v)}`;
 }
 
 function BarTip({ active, payload, currency }) {

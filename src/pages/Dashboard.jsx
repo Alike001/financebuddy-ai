@@ -20,8 +20,7 @@ import SpendBar from '../components/charts/SpendBar.jsx';
  * Dashboard: at-a-glance picture of this month + a placeholder agent insight.
  *
  * The insight card is intentionally deterministic right now — it's a quick
- * heuristic so the page feels alive. Step 7 swaps it for the real `insights`
- * skill output, which can be enhanced by the live LLM in Step 14.
+ * heuristic so the page feels alive.
  */
 export default function Dashboard() {
   const { transactions, profile } = useFinanceStore();
@@ -152,7 +151,6 @@ export default function Dashboard() {
           {quickInsight.detail && <p className="insight-detail">{quickInsight.detail}</p>}
           <div className="insight-foot">
             <Link to="/agent" className="btn btn-primary btn-sm">Open agent workflow →</Link>
-            <span className="insight-foot-note">Full insights skill arrives in step 7</span>
           </div>
         </div>
       </div>
