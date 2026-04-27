@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { useFinanceStore } from '../store/useFinanceStore.js';
+import { useFinanceStore, actions } from '../store/useFinanceStore.js';
 import { CATEGORY_BY_ID } from '../data/categories.js';
 import { money, dateShort, pct } from '../utils/format.js';
 import { monthOf, today } from '../utils/date.js';
@@ -36,6 +36,28 @@ export default function Dashboard() {
   const quickInsight = useMemo(() => quickHeuristicInsight(monthTx, byCat, t), [monthTx, byCat, t]);
 
   const savingsRate = t.income > 0 ? Math.max(0, t.net / t.income) : 0;
+
+  if (transactions.length === 0) {
+    return (
+      <section className="page">
+        <div className="page-head">
+          <h2 className="page-title">Hey {profile.name || 'there'}</h2>
+          <p className="page-sub">Your ledger is empty — add your first transaction or load demo data to see the agent in action.</p>
+        </div>
+        <div className="card empty-hero">
+          <div className="empty-hero-glyph">∅</div>
+          <h3 className="empty-hero-title">Nothing logged yet</h3>
+          <p className="empty-hero-body">
+            FinanceBuddy AI's charts, insights, and report skill all read from your transaction ledger. Add a row by hand or pull in the polished demo dataset to explore the workflow.
+          </p>
+          <div className="empty-hero-actions">
+            <Link to="/transactions" className="btn btn-primary">+ Add transaction</Link>
+            <button className="btn btn-ghost" onClick={() => actions.loadDemo()}>Load demo data</button>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="page">

@@ -1,5 +1,7 @@
 import { NavLink } from 'react-router-dom';
 
+import { useAgentStore } from '../store/useAgentStore.js';
+
 const NAV = [
   { to: '/', label: 'Dashboard', icon: '◆' },
   { to: '/transactions', label: 'Transactions', icon: '≡' },
@@ -10,6 +12,9 @@ const NAV = [
 ];
 
 export default function Sidebar() {
+  const { status, pendingPayment } = useAgentStore();
+  const agentBusy = status === 'running' || !!pendingPayment;
+
   return (
     <aside className="sidebar">
       <div className="sidebar-brand">
@@ -32,6 +37,9 @@ export default function Sidebar() {
           >
             <span className="nav-icon" aria-hidden="true">{item.icon}</span>
             <span>{item.label}</span>
+            {item.to === '/agent' && agentBusy && (
+              <span className="nav-pulse" aria-label="agent active" />
+            )}
           </NavLink>
         ))}
       </nav>

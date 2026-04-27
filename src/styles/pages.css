@@ -234,7 +234,9 @@
 .workflow-head {
   display: flex; align-items: flex-start; justify-content: space-between;
   gap: var(--s-4);
+  flex-wrap: wrap;
 }
+.workflow-head > :first-child { min-width: 0; flex: 1 1 280px; }
 
 .live-dot {
   width: 8px; height: 8px; border-radius: 50%;
@@ -963,4 +965,39 @@
   font-variant-numeric: tabular-nums;
   font-size: var(--t-sm);
   color: var(--c-text);
+}
+
+/* ───────── Empty-state hero (cold-start dashboard) ───────── */
+
+.empty-hero {
+  text-align: center;
+  padding: var(--s-9) var(--s-6);
+  background:
+    radial-gradient(500px 280px at 50% 0%, rgba(110,168,255,.10), transparent 60%),
+    radial-gradient(420px 240px at 50% 100%, rgba(69,224,168,.08), transparent 60%),
+    linear-gradient(180deg, var(--c-surface), var(--c-bg-2));
+}
+.empty-hero-glyph {
+  font-size: 48px;
+  font-family: var(--f-mono);
+  color: var(--c-primary);
+  line-height: 1;
+  margin-bottom: var(--s-3);
+  opacity: .8;
+}
+.empty-hero-title {
+  font-size: var(--t-xl);
+  font-weight: 600;
+  margin-bottom: var(--s-2);
+}
+.empty-hero-body {
+  font-size: var(--t-sm);
+  color: var(--c-text-mute);
+  max-width: 520px;
+  margin: 0 auto var(--s-5);
+  line-height: 1.6;
+}
+.empty-hero-actions {
+  display: inline-flex; gap: var(--s-3);
+  flex-wrap: wrap; justify-content: center;
 }

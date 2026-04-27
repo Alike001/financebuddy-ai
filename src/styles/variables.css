@@ -96,6 +96,19 @@
 
   --c-primary:      #2f6fed;
   --c-primary-2:    #1d4fc7;
+  --c-accent-2:     #16a672;
+  --sh-1: 0 1px 2px rgba(15, 23, 42, .06);
   --sh-2: 0 8px 24px rgba(15, 23, 42, .08);
   --sh-3: 0 16px 40px rgba(15, 23, 42, .12);
+}
+
+/* Tone down the heavy dark-mode glow on primary buttons + tabs in light mode. */
+:root[data-theme='light'] .btn-primary { box-shadow: 0 4px 12px rgba(47, 111, 237, .18); }
+:root[data-theme='light'] .seg-btn.on  { box-shadow: 0 3px 10px rgba(47, 111, 237, .18); }
+:root[data-theme='light'] .month-tab.on { box-shadow: 0 3px 10px rgba(47, 111, 237, .18); }
+:root[data-theme='light'] body {
+  background:
+    radial-gradient(1100px 600px at 12% -10%, rgba(47,111,237,.08), transparent 60%),
+    radial-gradient(900px 500px at 110% 20%, rgba(22,166,114,.06), transparent 60%),
+    var(--c-bg);
 }

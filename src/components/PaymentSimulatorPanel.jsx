@@ -58,7 +58,7 @@ export default function PaymentSimulatorPanel() {
             Pick a preset and the agent will route it through the same approval gate the saver skill uses.
           </div>
         </div>
-        <span className="pill">{money(0, profile.currency).replace('0.00', '')} demo mode</span>
+        <span className="pill pill-info">{profile.currency} · simulated</span>
       </div>
 
       <div className="sim-presets">
